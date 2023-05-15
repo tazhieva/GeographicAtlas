@@ -8,24 +8,29 @@ import UIKit
 import SnapKit
 
 class CountriesListVC: UIViewController {
-
-    var expandedCell: IndexSet = []
+    
+    private let viewModel = CountryListViewModel()
     
     private var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
         tableView.allowsMultipleSelection = true
-        tableView.register(CountryInfoCell.self, forCellReuseIdentifier: CountryInfoCell.identifier)
+        tableView.register(CountryListCell.self, forCellReuseIdentifier: CountryListCell.identifier)
         tableView.showsVerticalScrollIndicator = false
         return tableView
     }()
-     let cell = CountryInfoCell()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configUI()
         tableView.delegate = self
         tableView.dataSource = self
+        
+        viewModel.getCountries { [weak self] in
+            print(self?.viewModel.countries)
+            self?.tableView.reloadData()
+        }
     }
     
     // MARK: - UI Configuration
@@ -40,41 +45,38 @@ class CountriesListVC: UIViewController {
             make.top.left.right.bottom.equalToSuperview()
         }
     }
-    
 }
-// MARK: - UITableView DataSource
+
+extension CountriesListVC {
+    func openDetaiVC() {
+        let detailVC = CountryDetailVC()
+        navigationController?.pushViewController(detailVC, animated: false)
+    }
+}
+
+// MARK: - UITableView
 
 extension CountriesListVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-       
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CountryInfoCell.identifier, for: indexPath) as? CountryInfoCell else {return UITableViewCell()}
-        
-        cell.expandClicked = {
-            if self.expandedCell.contains(indexPath.row) {
-                self.expandedCell.remove(indexPath.row)
-            }else {
-                self.expandedCell.insert(indexPath.row)
-            }
-            print("11")
-            
-            tableView.reloadRows(at: [indexPath], with: .automatic)
-            
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CountryListCell.identifier, for: indexPath) as? CountryListCell else {
+            return UITableViewCell()
+        }
+        cell.configureLabels(country: viewModel.countries[indexPath.row])
+        cell.learnMoreButtonClicked = { [weak self] in
+            guard let self = self else { return }
+            self.openDetaiVC()
         }
         
         return cell
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if cell.isExpanded { return 300 }
-        return 100
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//       
+//    }
+
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        return viewModel.countries.count
     }
 }
 

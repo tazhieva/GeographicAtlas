@@ -12,9 +12,14 @@
 		71EE0EC12A0F4BEB00FD836C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71EE0EBF2A0F4BEB00FD836C /* LaunchScreen.storyboard */; };
 		71EE0EC92A0F4EDA00FD836C /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EE0EC82A0F4ED900FD836C /* APIManager.swift */; };
 		71EE0EDB2A0F5A0E00FD836C /* CountriesListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EE0EDA2A0F5A0E00FD836C /* CountriesListVC.swift */; };
-		71EE0EDD2A0F5B1600FD836C /* CountryInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EE0EDC2A0F5B1600FD836C /* CountryInfoCell.swift */; };
 		71EE0EE22A0F75FC00FD836C /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 71EE0EE12A0F75FC00FD836C /* SnapKit */; };
 		71EE0EEC2A0FEC3400FD836C /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EE0EEB2A0FEC3400FD836C /* Country.swift */; };
+		71EE0EEE2A10CD7900FD836C /* CountryDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EE0EED2A10CD7900FD836C /* CountryDetailVC.swift */; };
+		71EE0EF12A10D6EA00FD836C /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 71EE0EF02A10D6EA00FD836C /* Alamofire */; };
+		71EE0EF32A10DA1000FD836C /* CoutryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EE0EF22A10DA1000FD836C /* CoutryListViewModel.swift */; };
+		71EE0EF52A10E95700FD836C /* ApiRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EE0EF42A10E95700FD836C /* ApiRouter.swift */; };
+		71EE0EF92A11D43F00FD836C /* CountryListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EE0EF82A11D43F00FD836C /* CountryListCell.swift */; };
+		71EE0EFB2A12522A00FD836C /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EE0EFA2A12522A00FD836C /* Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,8 +30,12 @@
 		71EE0EC22A0F4BEB00FD836C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		71EE0EC82A0F4ED900FD836C /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		71EE0EDA2A0F5A0E00FD836C /* CountriesListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesListVC.swift; sourceTree = "<group>"; };
-		71EE0EDC2A0F5B1600FD836C /* CountryInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryInfoCell.swift; sourceTree = "<group>"; };
 		71EE0EEB2A0FEC3400FD836C /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
+		71EE0EED2A10CD7900FD836C /* CountryDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryDetailVC.swift; sourceTree = "<group>"; };
+		71EE0EF22A10DA1000FD836C /* CoutryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoutryListViewModel.swift; sourceTree = "<group>"; };
+		71EE0EF42A10E95700FD836C /* ApiRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRouter.swift; sourceTree = "<group>"; };
+		71EE0EF82A11D43F00FD836C /* CountryListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListCell.swift; sourceTree = "<group>"; };
+		71EE0EFA2A12522A00FD836C /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +44,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				71EE0EE22A0F75FC00FD836C /* SnapKit in Frameworks */,
+				71EE0EF12A10D6EA00FD836C /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,7 +97,7 @@
 		71EE0ECC2A0F561100FD836C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				71EE0EDC2A0F5B1600FD836C /* CountryInfoCell.swift */,
+				71EE0EF82A11D43F00FD836C /* CountryListCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -95,6 +105,7 @@
 		71EE0ECD2A0F561700FD836C /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				71EE0EF22A10DA1000FD836C /* CoutryListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -112,6 +123,7 @@
 		71EE0ECF2A0F564800FD836C /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				71EE0EED2A10CD7900FD836C /* CountryDetailVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -135,6 +147,8 @@
 			children = (
 				71EE0EC82A0F4ED900FD836C /* APIManager.swift */,
 				71EE0EEB2A0FEC3400FD836C /* Country.swift */,
+				71EE0EF42A10E95700FD836C /* ApiRouter.swift */,
+				71EE0EFA2A12522A00FD836C /* Extension.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -142,7 +156,6 @@
 		71EE0ED32A0F568800FD836C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				71EE0EDF2A0F6E5800FD836C /* Fonts */,
 				71EE0EDE2A0F6E2D00FD836C /* Assets */,
 			);
 			path = Resources;
@@ -169,13 +182,6 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
-		71EE0EDF2A0F6E5800FD836C /* Fonts */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Fonts;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -194,6 +200,7 @@
 			name = GeographicAtlas;
 			packageProductDependencies = (
 				71EE0EE12A0F75FC00FD836C /* SnapKit */,
+				71EE0EF02A10D6EA00FD836C /* Alamofire */,
 			);
 			productName = GeographicAtlas;
 			productReference = 71EE0EB12A0F4BE900FD836C /* GeographicAtlas.app */;
@@ -225,6 +232,7 @@
 			mainGroup = 71EE0EA82A0F4BE900FD836C;
 			packageReferences = (
 				71EE0EE02A0F75FC00FD836C /* XCRemoteSwiftPackageReference "SnapKit" */,
+				71EE0EEF2A10D6EA00FD836C /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 71EE0EB22A0F4BE900FD836C /* Products */;
 			projectDirPath = "";
@@ -252,11 +260,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				71EE0EDD2A0F5B1600FD836C /* CountryInfoCell.swift in Sources */,
+				71EE0EFB2A12522A00FD836C /* Extension.swift in Sources */,
 				71EE0EDB2A0F5A0E00FD836C /* CountriesListVC.swift in Sources */,
+				71EE0EF32A10DA1000FD836C /* CoutryListViewModel.swift in Sources */,
 				71EE0EC92A0F4EDA00FD836C /* APIManager.swift in Sources */,
 				71EE0EEC2A0FEC3400FD836C /* Country.swift in Sources */,
+				71EE0EF52A10E95700FD836C /* ApiRouter.swift in Sources */,
+				71EE0EEE2A10CD7900FD836C /* CountryDetailVC.swift in Sources */,
 				71EE0EB52A0F4BE900FD836C /* AppDelegate.swift in Sources */,
+				71EE0EF92A11D43F00FD836C /* CountryListCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -474,6 +486,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		71EE0EEF2A10D6EA00FD836C /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -481,6 +501,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 71EE0EE02A0F75FC00FD836C /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		71EE0EF02A10D6EA00FD836C /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 71EE0EEF2A10D6EA00FD836C /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NSAttributedString.Key.foregroundColor: UIColor.black,
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .semibold)
         ]
-        UINavigationBar.appearance().backIndicatorImage = UIImage(named: "navbarBack")?.withAlignmentRectInsets(UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0))
+        UINavigationBar.appearance().backIndicatorImage = UIImage(named: "navbarBack")
         UINavigationBar.appearance().backIndicatorTransitionMaskImage = UIImage(named: "navbarBack")
     }
 

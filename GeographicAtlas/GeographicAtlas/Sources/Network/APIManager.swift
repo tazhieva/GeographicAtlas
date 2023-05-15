@@ -7,8 +7,6 @@
 
 import UIKit
 
-import UIKit
-
 class APIManager {
     
     static let shared = APIManager()

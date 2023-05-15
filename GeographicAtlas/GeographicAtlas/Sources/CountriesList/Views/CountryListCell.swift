@@ -20,19 +20,18 @@ class CountryListCell: UITableViewCell {
         let label = UILabel()
         label.font = .systemFont(ofSize: 17, weight: .semibold)
         label.numberOfLines = 0
-        label.text = "Country"
         return label
     }()
     
     fileprivate let capitalLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 13, weight: .regular)
-        label.text = "Capital"
         return label
     }()
     
     fileprivate let flagImageView: UIImageView = {
         let view = UIImageView(image: UIImage(named: "flag"))
+        view.clipsToBounds = true
         return view
     }()
     
@@ -56,28 +55,25 @@ class CountryListCell: UITableViewCell {
         stack.axis = .horizontal
         stack.distribution = .equalCentering
         stack.alignment = .fill
-//        stack.setCustomSpacing(140, after: vStackView1)
+        //        stack.setCustomSpacing(140, after: vStackView1)
         return stack
     }()
     
     fileprivate let populationLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 15, weight: .regular)
-        label.text = "Population"
         return label
     }()
     
     fileprivate let areaLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 15, weight: .regular)
-        label.text = "Area"
         return label
     }()
     
     fileprivate let currencyLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 15, weight: .regular)
-        label.text = "Currency"
         return label
     }()
     
@@ -108,22 +104,36 @@ class CountryListCell: UITableViewCell {
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-           super.init(style: style, reuseIdentifier: reuseIdentifier)
-           configUI()
-
-       }
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        configUI()
+        
+    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     func configureLabels(country: Country) {
-        countryNameLabel.text = country.name.common
-        capitalLabel.text = country.capital?.first
-        populationLabel.text = "Population: \(country.population ?? 19) mln"
-        areaLabel.text = "Area: \(country.area ?? 2724900) km²"
-        currencyLabel.text = "Currency: \(country.currencies?.afn?.name ?? "Kazakh")"
+        let countryName = country.name.common
+        let capital = country.capital?.first
+        let population = country.population ?? 19
+        let area = country.area ?? 2724900
+        let currency = country.currencies?.afn?.name ?? "Kazakh"
+        
+        countryNameLabel.text = countryName
+        capitalLabel.text = capital
+        
+        let populationText = "Population: \(formatPopulation(population))"
+        populationLabel.attributedText = attributedText(withText: populationText)
+        
+        let areaText = "Area: \(formatArea(area)) km²"
+        areaLabel.attributedText = attributedText(withText: areaText)
+
+        
+        let currencyText = "Currency: \(currency)"
+        currencyLabel.attributedText = attributedText(withText: currencyText)
     }
+
 }
 
 extension CountryListCell {
@@ -131,12 +141,11 @@ extension CountryListCell {
         isExpanded.toggle()
         if isExpanded {
             vStackView2.isHidden = false
+            expandButton.setImage(UIImage(named: "collapseButton"), for: .normal)
         } else {
             vStackView2.isHidden = true
-            layoutIfNeeded()
+            expandButton.setImage(UIImage(named: "expandButton"), for: .normal)
         }
-
-        print(isExpanded)
     }
     
     @objc func learnMoreButtonTapped() {
@@ -153,7 +162,7 @@ extension CountryListCell {
         
         mainContainer.addSubview(hStackView)
         mainContainer.addSubview(vStackView2)
-//        vStackView2.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
+        //        vStackView2.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         
         makeConstraints()
     }
@@ -173,7 +182,7 @@ extension CountryListCell {
         
         flagImageView.snp.makeConstraints { make in
             make.left.top.bottom.equalToSuperview().inset(12)
-            make.width.equalTo(95)
+            make.width.equalTo(82)
             make.height.equalTo(48)
         }
         

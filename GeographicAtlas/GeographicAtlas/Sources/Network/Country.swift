@@ -27,11 +27,11 @@ struct CapitalInfo: Codable {
     let latlng: [Double]?
 }
 
-enum Continent: String, Codable {
-    case africa = "Africa"
-    case antarctica = "Antarctica"
+enum Continent: String, Codable, CaseIterable {
     case asia = "Asia"
     case europe = "Europe"
+    case africa = "Africa"
+    case antarctica = "Antarctica"
     case northAmerica = "North America"
     case oceania = "Oceania"
     case southAmerica = "South America"

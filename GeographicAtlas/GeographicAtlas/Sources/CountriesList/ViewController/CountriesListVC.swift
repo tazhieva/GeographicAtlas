@@ -1,82 +1,92 @@
-//  CountriesListVC.swift
-//  GeographicAtlas
-//
-//  Created by Акмарал Тажиева on 13.05.2023.
-//
-
 import UIKit
 import SnapKit
 
 class CountriesListVC: UIViewController {
-    
+
     private let viewModel = CountryListViewModel()
     
     private var tableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .plain)
-        tableView.separatorStyle = .none
-        tableView.backgroundColor = .clear
-        tableView.allowsMultipleSelection = true
-        tableView.register(CountryListCell.self, forCellReuseIdentifier: CountryListCell.identifier)
-        tableView.showsVerticalScrollIndicator = false
-        return tableView
+        let view = UITableView()
+        view.separatorStyle = .none
+        view.backgroundColor = .clear
+        view.allowsMultipleSelection = true
+        view.register(CountryListCell.self, forCellReuseIdentifier: CountryListCell.identifier)
+        view.showsVerticalScrollIndicator = false
+        return view
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configUI()
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-        viewModel.getCountries { [weak self] in
-            print(self?.viewModel.countries)
-            self?.tableView.reloadData()
-        }
-    }
-    
-    // MARK: - UI Configuration
-    
-    private func configUI() {
-        view.addSubview(tableView)
-        makeConstraints()
-    }
-    
-    private func makeConstraints() {
-        tableView.snp.makeConstraints { make in
-            make.top.left.right.bottom.equalToSuperview()
-        }
+        view.backgroundColor = .systemBackground
+        navigationItem.backButtonDisplayMode = .minimal
+        configureTableView()
+        fetchCountries()
     }
 }
 
+ // MARK: - Private Methods
+
 extension CountriesListVC {
+    private func fetchCountries() {
+        viewModel.getCountries { [weak self] in
+            self?.tableView.reloadData()
+        }
+    }
+
     func openDetaiVC() {
-        let detailVC = CountryDetailVC()
-        navigationController?.pushViewController(detailVC, animated: false)
+    
+    }
+}
+
+ // MARK: - Configure TableView
+
+extension CountriesListVC {
+    private func configureTableView() {
+    
+        tableView.delegate = self
+        tableView.dataSource = self
+        view.addSubview(tableView)
+        
+        makeConstraints()
+    }
+    
+    func makeConstraints() {
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.left.right.bottom.equalToSuperview()
+        }
     }
 }
 
 // MARK: - UITableView
 
 extension CountriesListVC: UITableViewDataSource, UITableViewDelegate {
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return viewModel.countriesByContinent.count
+    }
+
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let continent = Continent.allCases[section]
+        return continent.rawValue.uppercased()
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let continent = Continent.allCases[section]
+        return viewModel.countriesByContinent[continent]?.count ?? 1
+    }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CountryListCell.identifier, for: indexPath) as? CountryListCell else {
-            return UITableViewCell()
-        }
-        cell.configureLabels(country: viewModel.countries[indexPath.row])
+        let cell = tableView.dequeueReusableCell(withIdentifier: CountryListCell.identifier, for: indexPath) as! CountryListCell
+        let continent = Continent.allCases[indexPath.section]
+        let country = viewModel.countriesByContinent[continent]![indexPath.row]
+        
+        cell.configureLabels(country: country)
         cell.learnMoreButtonClicked = { [weak self] in
             guard let self = self else { return }
-            self.openDetaiVC()
+            let detailVC = CountryDetailVC(country: country)
+            self.navigationController?.pushViewController(detailVC, animated: true)
         }
-        
         return cell
     }
-    
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//       
-//    }
-
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.countries.count
-    }
 }
-

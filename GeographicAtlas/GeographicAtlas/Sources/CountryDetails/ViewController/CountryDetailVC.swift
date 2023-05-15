@@ -10,8 +10,11 @@ import SnapKit
 
 class CountryDetailVC: UIViewController {
     
+    var country: Country
+    
     let flagImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFit
         imageView.image = UIImage(named: "flag")
         return imageView
@@ -89,21 +92,29 @@ class CountryDetailVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .systemBackground
         configUI()
     }
+    init(country: Country) {
+        self.country = country
+        super.init(nibName: nil, bundle: nil)
+        configureDetailVC(with: country)
+    }
     
-//    func updateUI(with country: Country) {
-//        title = country.name.common ?? ""
-//        regionLabel.text = "Region:\n\(country.subregion ?? "" )"
-//        capitalLabel.text = "Capital:\n\(country.capital?.first ?? "" )"
-//        capitalCoordinatesLabel.text = "Capital Coordinates:\n\(country.capitalInfo?.latlng ?? [] )"
-//        populationLabel.text = "Population: \n\(country.population ?? 0)"
-//        areaLabel.text = "Area:\n\(country.area ?? 0) km²"
-//        currencyLabel.text = "Currency: \(country.currencies?.afn?.name ?? "")"
-//        timezonesLabel.text = "Timezones:\n\(country.timezones ?? []) "
-//    }
-
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
+    func configureDetailVC(with country: Country) {
+        title = country.name.common ?? ""
+        regionLabel.text = "Region:\n\(country.subregion ?? "" )"
+        capitalLabel.text = "Capital:\n\(country.capital?.first ?? "" )"
+        capitalCoordinatesLabel.text = "Capital Coordinates:\n\(country.capitalInfo?.latlng ?? [] )"
+        populationLabel.text = "Population: \n\(country.population ?? 0)"
+        areaLabel.text = "Area:\n\(country.area ?? 0) km²"
+        currencyLabel.text = "Currency: \(country.currencies?.afn?.name ?? "")"
+        timezonesLabel.text = "Timezones:\n\(country.timezones ?? []) "
+    }
 }
 
 extension CountryDetailVC {
@@ -117,8 +128,7 @@ extension CountryDetailVC {
         flagImageView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.left.right.equalToSuperview().inset(16)
-        
-            
+            make.height.equalTo(200)
         }
         stackView.snp.makeConstraints { make in
             make.top.equalTo(flagImageView.snp.bottom).offset(24)
@@ -126,5 +136,3 @@ extension CountryDetailVC {
         }
     }
 }
-
-

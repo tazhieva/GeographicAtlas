@@ -13,24 +13,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     
-        
         configUI()
         
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.makeKeyAndVisible()
-        window?.backgroundColor = .systemBackground
+
         let vc = CountriesListVC()
         let nc = UINavigationController(rootViewController: vc)
         vc.title = "World countries"
         window?.rootViewController = nc
-    
+        window?.makeKeyAndVisible()
+        
         return true
     }
     
     func configUI() {
-        UINavigationBar.appearance().frame.size.height = 44 // Replace 44 with the desired height
-        UINavigationBar.appearance().tintColor = .black
         UINavigationBar.appearance().barStyle = .default
+        UINavigationBar.appearance().layer.shadowColor = UIColor.lightGray.cgColor
+        UINavigationBar.appearance().backItem?.backButtonDisplayMode = .minimal
         UINavigationBar.appearance().titleTextAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor.black,
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .semibold)
@@ -38,5 +37,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().backIndicatorImage = UIImage(named: "navbarBack")
         UINavigationBar.appearance().backIndicatorTransitionMaskImage = UIImage(named: "navbarBack")
     }
-
 }

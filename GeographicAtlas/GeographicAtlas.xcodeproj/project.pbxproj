@@ -20,6 +20,7 @@
 		71EE0EF52A10E95700FD836C /* ApiRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EE0EF42A10E95700FD836C /* ApiRouter.swift */; };
 		71EE0EF92A11D43F00FD836C /* CountryListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EE0EF82A11D43F00FD836C /* CountryListCell.swift */; };
 		71EE0EFB2A12522A00FD836C /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EE0EFA2A12522A00FD836C /* Extension.swift */; };
+		71EE0EFD2A12942500FD836C /* HeaderTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EE0EFC2A12942500FD836C /* HeaderTitleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		71EE0EF42A10E95700FD836C /* ApiRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRouter.swift; sourceTree = "<group>"; };
 		71EE0EF82A11D43F00FD836C /* CountryListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListCell.swift; sourceTree = "<group>"; };
 		71EE0EFA2A12522A00FD836C /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		71EE0EFC2A12942500FD836C /* HeaderTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderTitleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				71EE0EF82A11D43F00FD836C /* CountryListCell.swift */,
+				71EE0EFC2A12942500FD836C /* HeaderTitleView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 				71EE0EC92A0F4EDA00FD836C /* APIManager.swift in Sources */,
 				71EE0EEC2A0FEC3400FD836C /* Country.swift in Sources */,
 				71EE0EF52A10E95700FD836C /* ApiRouter.swift in Sources */,
+				71EE0EFD2A12942500FD836C /* HeaderTitleView.swift in Sources */,
 				71EE0EEE2A10CD7900FD836C /* CountryDetailVC.swift in Sources */,
 				71EE0EB52A0F4BE900FD836C /* AppDelegate.swift in Sources */,
 				71EE0EF92A11D43F00FD836C /* CountryListCell.swift in Sources */,

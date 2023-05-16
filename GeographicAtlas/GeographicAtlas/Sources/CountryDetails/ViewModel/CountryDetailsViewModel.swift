@@ -1,23 +1,21 @@
 //
-//  CountryListViewModel.swift
+//  CountryDetailsViewModel.swift
 //  GeographicAtlas
 //
-//  Created by Акмарал Тажиева on 14.05.2023.
+//  Created by Акмарал Тажиева on 16.05.2023.
 //
 
 import UIKit
 import Alamofire
 
-class CountryListViewModel {
+class CountryDetailsViewModel {
     
-    var countries: [Country] = []
+    var country: [Country] = []
     
-    private let url = "\(Constants.baseURL)all"
     private let imageCache = URLCache.shared
     
-    var countriesByContinent: [Continent: [Country]] = [:]
-    
-    func getCountries(completion: @escaping () -> Void) {
+    func getCountryDetails(cca2Code: String, completion: @escaping ([Country]?, Error?) -> Void) {
+        let url = "\(Constants.baseURL)alpha/\(cca2Code)" 
         AF.request(url).responseJSON { response in
             guard let jsonData = response.data,
                   let data = jsonData as? Data else {
@@ -25,16 +23,8 @@ class CountryListViewModel {
             }
             do {
                 let decodedData = try JSONDecoder().decode([Country].self, from: data)
-                self.countries = decodedData
-                for country in self.countries {
-                    if let continent = country.continents?.first {
-                        if self.countriesByContinent[continent] == nil {
-                            self.countriesByContinent[continent] = []
-                        }
-                        self.countriesByContinent[continent]?.append(country)
-                    }
-                }
-                completion()
+                self.country = decodedData
+                completion(decodedData, nil)
             } catch let error {
                 print("Error decoding JSON: \(error.localizedDescription)")
             }
@@ -72,6 +62,4 @@ class CountryListViewModel {
                completion(nil)
            }
        }
-   
 }
-

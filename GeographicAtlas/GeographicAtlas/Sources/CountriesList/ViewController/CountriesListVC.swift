@@ -2,8 +2,12 @@ import UIKit
 import SnapKit
 
 class CountriesListVC: UIViewController {
-
+    
+    // MARK: - Private Properties
+    
     private let viewModel = CountryListViewModel()
+    
+    // MARK: - UI Elements
     
     private var tableView: UITableView = {
         let view = UITableView()
@@ -14,7 +18,9 @@ class CountriesListVC: UIViewController {
         view.showsVerticalScrollIndicator = false
         return view
     }()
-
+    
+    // MARK: - LifeCycyle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -24,7 +30,7 @@ class CountriesListVC: UIViewController {
     }
 }
 
- // MARK: - Private Methods
+// MARK: - Fetch Data
 
 extension CountriesListVC {
     private func fetchCountries() {
@@ -38,7 +44,7 @@ extension CountriesListVC {
     }
 }
 
- // MARK: - Configure TableView
+// MARK: - Configure TableView
 
 extension CountriesListVC {
     private func configureTableView() {
@@ -75,16 +81,28 @@ extension CountriesListVC: UITableViewDataSource, UITableViewDelegate {
         let continent = Continent.allCases[section]
         return viewModel.countriesByContinent[continent]?.count ?? 1
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: CountryListCell.identifier, for: indexPath) as! CountryListCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CountryListCell.identifier, for: indexPath) as? CountryListCell else {
+            return UITableViewCell()
+        }
+        
         let continent = Continent.allCases[indexPath.section]
-        let country = viewModel.countriesByContinent[continent]![indexPath.row]
+        guard let country = viewModel.countriesByContinent[continent]?[indexPath.row], let cca2 = country.cca2 else {
+            return cell
+        }
+        
+        if let urlString = country.flags?.png {
+            viewModel.downloadImage(from: urlString) { [weak self] image in
+                cell.flagImage = image
+            }
+        }
         
         cell.configureLabels(country: country)
         cell.learnMoreButtonClicked = { [weak self] in
             guard let self = self else { return }
-            let detailVC = CountryDetailVC(country: country)
+            let detailVC = CountryDetailVC(cca2Code: cca2)
+            detailVC.title = country.name.common
             self.navigationController?.pushViewController(detailVC, animated: true)
         }
         return cell

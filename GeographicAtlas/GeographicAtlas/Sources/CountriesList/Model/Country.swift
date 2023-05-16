@@ -18,6 +18,7 @@ struct Country: Codable {
     let population: Int?
     let timezones: [String]?
     let continents: [Continent]?
+    let cca2: String?
     let flags: Flags?
     let capitalInfo: CapitalInfo?
 }
@@ -25,30 +26,6 @@ struct Country: Codable {
 // MARK: - CapitalInfo
 struct CapitalInfo: Codable {
     let latlng: [Double]?
-}
-
-enum Continent: String, Codable, CaseIterable {
-    case asia = "Asia"
-    case europe = "Europe"
-    case africa = "Africa"
-    case antarctica = "Antarctica"
-    case northAmerica = "North America"
-    case oceania = "Oceania"
-    case southAmerica = "South America"
-}
-
-// MARK: - Currencies
-struct Currencies: Codable {
-    let afn: Afn?
-
-    enum CodingKeys: String, CodingKey {
-        case afn = "AFN"
-    }
-}
-
-// MARK: - Afn
-struct Afn: Codable {
-    let name, symbol: String?
 }
 
 // MARK: - Flags

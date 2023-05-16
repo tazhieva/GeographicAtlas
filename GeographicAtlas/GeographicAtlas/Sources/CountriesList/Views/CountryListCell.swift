@@ -41,7 +41,7 @@ class CountryListCell: UITableViewCell {
     
     private let flagImageView: UIImageView = {
         let view = UIImageView()
-        view.layer.cornerRadius = 8
+        view.layer.cornerRadius = 5
         view.clipsToBounds = true
         return view
     }()

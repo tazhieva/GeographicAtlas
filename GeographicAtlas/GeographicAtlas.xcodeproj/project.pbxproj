@@ -18,7 +18,6 @@
 		71EE0EE22A0F75FC00FD836C /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 71EE0EE12A0F75FC00FD836C /* SnapKit */; };
 		71EE0EEC2A0FEC3400FD836C /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EE0EEB2A0FEC3400FD836C /* Country.swift */; };
 		71EE0EEE2A10CD7900FD836C /* CountryDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EE0EED2A10CD7900FD836C /* CountryDetailVC.swift */; };
-		71EE0EF12A10D6EA00FD836C /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 71EE0EF02A10D6EA00FD836C /* Alamofire */; };
 		71EE0EF32A10DA1000FD836C /* CoutryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EE0EF22A10DA1000FD836C /* CoutryListViewModel.swift */; };
 		71EE0EF92A11D43F00FD836C /* CountryListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EE0EF82A11D43F00FD836C /* CountryListCell.swift */; };
 		71EE0EFB2A12522A00FD836C /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EE0EFA2A12522A00FD836C /* Extension.swift */; };
@@ -48,7 +47,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				71EE0EE22A0F75FC00FD836C /* SnapKit in Frameworks */,
-				71EE0EF12A10D6EA00FD836C /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,7 +204,6 @@
 			name = GeographicAtlas;
 			packageProductDependencies = (
 				71EE0EE12A0F75FC00FD836C /* SnapKit */,
-				71EE0EF02A10D6EA00FD836C /* Alamofire */,
 			);
 			productName = GeographicAtlas;
 			productReference = 71EE0EB12A0F4BE900FD836C /* GeographicAtlas.app */;
@@ -238,7 +235,6 @@
 			mainGroup = 71EE0EA82A0F4BE900FD836C;
 			packageReferences = (
 				71EE0EE02A0F75FC00FD836C /* XCRemoteSwiftPackageReference "SnapKit" */,
-				71EE0EEF2A10D6EA00FD836C /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 71EE0EB22A0F4BE900FD836C /* Products */;
 			projectDirPath = "";
@@ -494,14 +490,6 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		71EE0EEF2A10D6EA00FD836C /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -509,11 +497,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 71EE0EE02A0F75FC00FD836C /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
-		};
-		71EE0EF02A10D6EA00FD836C /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 71EE0EEF2A10D6EA00FD836C /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

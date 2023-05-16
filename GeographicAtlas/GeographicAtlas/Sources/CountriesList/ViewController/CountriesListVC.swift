@@ -35,7 +35,9 @@ class CountriesListVC: UIViewController {
 extension CountriesListVC {
     private func fetchCountries() {
         viewModel.getCountries { [weak self] in
-            self?.tableView.reloadData()
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
         }
     }
 
@@ -94,7 +96,9 @@ extension CountriesListVC: UITableViewDataSource, UITableViewDelegate {
         
         if let urlString = country.flags?.png {
             viewModel.downloadImage(from: urlString) { [weak self] image in
-                cell.flagImage = image
+                DispatchQueue.main.async {
+                    cell.flagImage = image
+                }
             }
         }
         

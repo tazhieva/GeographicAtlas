@@ -13,13 +13,13 @@ extension UITableViewCell {
         let colonRange = (text as NSString).range(of: ":")
         let attributedText = NSMutableAttributedString(string: text)
         
-        attributedText.addAttribute(.foregroundColor, value: UIColor.gray, range: NSMakeRange(0, colonRange.location + 1))
-        attributedText.addAttribute(.foregroundColor, value: UIColor.black, range: NSMakeRange(colonRange.location + 2, text.count - colonRange.location - 2))
-        attributedText.addAttribute(.foregroundColor, value: UIColor.gray, range: NSMakeRange(colonRange.location, 1))
+        attributedText.addAttributes([.foregroundColor: UIColor.gray], range: NSMakeRange(0, colonRange.location + 1))
+        attributedText.addAttributes([.foregroundColor: UIColor.black], range: NSMakeRange(colonRange.location + 2, text.count - colonRange.location - 2))
+        attributedText.addAttributes([.foregroundColor: UIColor.gray], range: NSMakeRange(colonRange.location, 1))
         
         return attributedText
     }
-
+    
     func formatPopulation(_ population: Int?) -> String {
         guard let population = population else {
             return ""
@@ -66,7 +66,7 @@ extension UIViewController {
         let attributedText = NSMutableAttributedString()
         
         guard let colonRange = text.range(of: ":") else {
-            // If the colon is not found, return the text as is
+            
             attributedText.append(NSAttributedString(string: "\(bulletPoint)\(text)"))
             return attributedText
         }
@@ -121,7 +121,6 @@ extension UIViewController {
             return formatter.string(from: NSNumber(value: population)) ?? ""
         }
     }
-    
     
     func formatCoordinates(_ coordinates: [Double]) -> String {
         let latitude = coordinates[0]

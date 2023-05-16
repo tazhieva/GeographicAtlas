@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Alamofire
 
 class CountryDetailsViewModel {
     
@@ -15,51 +14,62 @@ class CountryDetailsViewModel {
     private let imageCache = URLCache.shared
     
     func getCountryDetails(cca2Code: String, completion: @escaping ([Country]?, Error?) -> Void) {
-        let url = "\(Constants.baseURL)alpha/\(cca2Code)" 
-        AF.request(url).responseJSON { response in
-            guard let jsonData = response.data,
-                  let data = jsonData as? Data else {
+        let url = "\(Constants.baseURL)alpha/\(cca2Code)"
+        
+        guard let requestUrl = URL(string: url) else {
+            completion(nil, NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"]))
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: requestUrl) { (data, response, error) in
+            guard let jsonData = data else {
+                completion(nil, error)
                 return
             }
+            
             do {
-                let decodedData = try JSONDecoder().decode([Country].self, from: data)
+                let decodedData = try JSONDecoder().decode([Country].self, from: jsonData)
                 self.country = decodedData
                 completion(decodedData, nil)
             } catch let error {
-                print("Error decoding JSON: \(error.localizedDescription)")
+                completion(nil, error)
             }
         }
+        
+        task.resume()
     }
     
     func downloadImage(from urlString: String, completion: @escaping (UIImage?) -> Void) {
-           if let url = URL(string: urlString) {
-               // Проверяем, есть ли изображение в кэше
-               if let cachedResponse = imageCache.cachedResponse(for: URLRequest(url: url)),
-                  let image = UIImage(data: cachedResponse.data) {
-                   completion(image)
-                   return
-               }
-
-               // Если изображения нет в кэше, загружаем его
-               AF.request(url).responseData { response in
-                   switch response.result {
-                   case .success(let data):
-                       if let image = UIImage(data: data) {
-                           // Сохраняем изображение в кэше
-                           let cachedData = CachedURLResponse(response: response.response!,
-                                                              data: data)
-                           self.imageCache.storeCachedResponse(cachedData, for: URLRequest(url: url))
-                           
-                           completion(image)
-                       } else {
-                           completion(nil)
-                       }
-                   case .failure:
-                       completion(nil)
-                   }
-               }
-           } else {
-               completion(nil)
-           }
-       }
+        if let url = URL(string: urlString) {
+            if let cachedResponse = imageCache.cachedResponse(for: URLRequest(url: url)),
+               let image = UIImage(data: cachedResponse.data) {
+                completion(image)
+                return
+            }
+            
+            let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+                guard let imageData = data, let response = response else {
+                    completion(nil)
+                    return
+                }
+                
+                if let image = UIImage(data: imageData) {
+                    let cachedData = CachedURLResponse(response: response, data: imageData)
+                    self.imageCache.storeCachedResponse(cachedData, for: URLRequest(url: url))
+                    
+                    DispatchQueue.main.async {
+                        completion(image)
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        completion(nil)
+                    }
+                }
+            }
+            
+            task.resume()
+        } else {
+            completion(nil)
+        }
+    }
 }

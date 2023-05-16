@@ -21,8 +21,8 @@ class CountryDetailVC: UIViewController {
     private let flagImageView: UIImageView = {
         let view = UIImageView()
         view.layer.cornerRadius = 12
-        view.clipsToBounds = true
         view.contentMode = .scaleAspectFill
+        view.clipsToBounds = true
         return view
     }()
     
@@ -117,31 +117,33 @@ class CountryDetailVC: UIViewController {
     }
 }
 
-
 // MARK: - Private Methods
 extension CountryDetailVC {
     private func configureLabels(country: Country) {
-        let regionText = " Region: \(country.subregion ?? "")"
-        regionLabel.attributedText = formatBulletList(withText: regionText)
-        
-        let capitalText = "Capital: \(country.capital?.first ?? "")"
-        capitalLabel.attributedText = formatBulletList(withText: capitalText)
-        
-        let coordinatesText = "Capital coordinates: \(formatCoordinates(country.capitalInfo?.latlng ?? [0]))"
-        capitalCoordinatesLabel.attributedText = formatBulletList(withText: coordinatesText)
-        
-        let populationText = "Population: \(formatPopulation(country.population ?? 0))"
-        populationLabel.attributedText = formatBulletList(withText: populationText)
-        
-        let areaText = "Area: \(formatNumber(Int(country.area ?? 0))) km²"
-        areaLabel.attributedText = formatBulletList(withText: areaText)
-        
-        let currencyText = "Currency: \(country.currencies?.afn?.name ?? "Tenge (₸) (KZT)")"
-        currencyLabel.attributedText = formatBulletList(withText: currencyText)
-        
-        let timezonesText = "Timezones: \(country.timezones?.joined(separator: ", ") ?? "")"
-        timezonesLabel.attributedText = formatBulletList(withText: timezonesText)
+        DispatchQueue.main.async {
+            let regionText = "Region: \(country.subregion ?? "")"
+            self.regionLabel.attributedText = self.formatBulletList(withText: regionText)
+            
+            let capitalText = "Capital: \(country.capital?.first ?? "")"
+            self.capitalLabel.attributedText = self.formatBulletList(withText: capitalText)
+            
+            let coordinatesText = "Capital coordinates: \(self.formatCoordinates(country.capitalInfo?.latlng ?? [0]))"
+            self.capitalCoordinatesLabel.attributedText = self.formatBulletList(withText: coordinatesText)
+            
+            let populationText = "Population: \(self.formatPopulation(country.population ?? 0))"
+            self.populationLabel.attributedText = self.formatBulletList(withText: populationText)
+            
+            let areaText = "Area: \(self.formatNumber(Int(country.area ?? 0))) km²"
+            self.areaLabel.attributedText = self.formatBulletList(withText: areaText)
+            
+            let currencyText = "Currency: \(country.currencies?.afn?.name ?? "Tenge (₸) (KZT)")"
+            self.currencyLabel.attributedText = self.formatBulletList(withText: currencyText)
+            
+            let timezonesText = "Timezones: \(country.timezones?.joined(separator: ", \n\n") ?? "")"
+            self.timezonesLabel.attributedText = self.formatBulletList(withText: timezonesText)
+        }
     }
+
 }
 
 // MARK: - Fetch Data
@@ -152,17 +154,16 @@ extension CountryDetailVC {
             if let error = error {
                 print("Error fetching country details: \(error)")
             } else if let country = country?.first {
-                self?.configureLabels(country: country)
-                if let urlString = country.flags?.png {
-                    self?.viewModel.downloadImage(from: urlString) { [weak self] image in
-                        DispatchQueue.main.async {
+                DispatchQueue.main.async {
+                    self?.configureLabels(country: country)
+                    if let urlString = country.flags?.png {
+                        self?.viewModel.downloadImage(from: urlString) { image in
                             self?.flagImageView.image = image
                         }
                     }
                 }
             }
         }
-        
     }
 }
 
@@ -174,7 +175,6 @@ extension CountryDetailVC {
         view.addSubview(scrollView)
         scrollView.addSubview(flagImageView)
         scrollView.addSubview(stackView)
-
         
         makeConstraints()
     }
@@ -185,14 +185,14 @@ extension CountryDetailVC {
         }
 
         flagImageView.snp.makeConstraints { make in
-            make.top.equalTo(scrollView.snp.top).inset(20)
-            make.left.right.equalToSuperview().inset(25)
-            make.height.equalTo(200)
+            make.top.equalTo(scrollView.snp.top).inset(15)
+            make.left.right.equalToSuperview().inset(16)
+            make.centerX.equalToSuperview()
         }
         
         stackView.snp.makeConstraints { make in
             make.top.equalTo(flagImageView.snp.bottom).offset(24)
-            make.left.right.equalToSuperview().inset(25)
+            make.left.right.equalToSuperview().inset(27)
             make.bottom.equalToSuperview().inset(50)
         }
     }

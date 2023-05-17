@@ -23,7 +23,7 @@ class CountryListCell: UITableViewCell {
 //    var expandButtonClicked: (() -> Void)?
     var isExpanded: Bool = false
     
-     // MARK: - UI Elements
+    // MARK: - UI Elements
     
     private let countryNameLabel: UILabel = {
         let label = UILabel()
@@ -54,15 +54,15 @@ class CountryListCell: UITableViewCell {
         return btn
     }()
     
-    private lazy var vStackView1: UIStackView = {
+    private lazy var countryStackView: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [countryNameLabel, capitalLabel])
         stack.axis = .vertical
         stack.spacing = 4
         return stack
     }()
     
-    private lazy var hStackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [flagImageView, vStackView1, expandButton])
+    private lazy var cardStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [flagImageView, countryStackView, expandButton])
         stack.axis = .horizontal
         stack.distribution = .equalCentering
         stack.alignment = .fill
@@ -87,11 +87,12 @@ class CountryListCell: UITableViewCell {
         return label
     }()
     
-    private lazy var vStackView2: UIStackView = {
+    private lazy var detailStackView: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [populationLabel, areaLabel, currencyLabel, learnMoreButton])
         stack.axis = .vertical
         stack.spacing = 8
         stack.distribution = .equalSpacing
+        stack.isHidden = true
         return stack
     }()
     
@@ -104,15 +105,16 @@ class CountryListCell: UITableViewCell {
         return btn
     }()
     
-    private lazy var mainContainer: UIView = {
-        let view = UIView()
+    private lazy var mainStackView: UIStackView = {
+        let view = UIStackView()
         view.backgroundColor = UIColor(named: Constants.cellColor)
         view.layer.cornerRadius = 12
+        view.axis = .vertical
         view.clipsToBounds = true
         return view
     }()
     
-     // MARK: - LifeCycle
+    // MARK: - LifeCycle
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -124,7 +126,7 @@ class CountryListCell: UITableViewCell {
     }
 }
 
- // MARK: - Methods
+// MARK: - Methods
 
 extension CountryListCell {
     func configureLabels(country: Country) {
@@ -142,16 +144,16 @@ extension CountryListCell {
     }
 }
 
- // MARK: - Actions
+// MARK: - Actions
 
 extension CountryListCell {
     @objc func expandButtonTapped() {
         isExpanded.toggle()
         if isExpanded {
-            vStackView2.isHidden = false
+            detailStackView.isHidden = false
             expandButton.setImage(UIImage(named: Constants.collapseButtonImageName), for: .normal)
         } else {
-            vStackView2.isHidden = true
+            detailStackView.isHidden = true
             expandButton.setImage(UIImage(named: Constants.expandButtonImageName), for: .normal)
         }
     }
@@ -161,30 +163,29 @@ extension CountryListCell {
     }
 }
 
- // MARK: - ConfigUI
+// MARK: - ConfigUI
 extension CountryListCell {
     private func configUI() {
         selectionStyle = .none
         backgroundColor = .clear
         
-        contentView.addSubview(mainContainer)
+        contentView.addSubview(mainStackView)
         
-        mainContainer.addSubview(hStackView)
-        mainContainer.addSubview(vStackView2)
+        mainStackView.addSubview(cardStackView)
+        mainStackView.addSubview(detailStackView)
         //        vStackView2.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
-        
         makeConstraints()
     }
     
     private func makeConstraints() {
-        mainContainer.snp.makeConstraints { make in
+        mainStackView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(10)
             make.left.equalToSuperview().offset(16)
             make.right.equalToSuperview().offset(-16)
             make.bottom.equalToSuperview().offset(-10)
         }
         
-        hStackView.snp.makeConstraints { make in
+        cardStackView.snp.makeConstraints { make in
             make.top.left.equalToSuperview()
             make.right.equalToSuperview().offset(-18)
         }
@@ -195,7 +196,7 @@ extension CountryListCell {
             make.height.equalTo(48)
         }
         
-        vStackView1.snp.makeConstraints { make in
+        countryStackView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(16)
             make.left.equalTo(flagImageView.snp.right).offset(12)
             
@@ -206,14 +207,14 @@ extension CountryListCell {
             make.right.equalToSuperview().offset(-18)
         }
         
-        vStackView2.snp.makeConstraints{ make in
-            make.top.equalTo(hStackView.snp.bottom).offset(12)
+        detailStackView.snp.makeConstraints{ make in
+            make.top.equalTo(cardStackView.snp.bottom).offset(12)
             make.left.right.equalToSuperview().inset(12)
             make.bottom.equalToSuperview().inset(26)
         }
         
         learnMoreButton.snp.makeConstraints { make in
-            make.centerX.equalTo(vStackView2.snp.centerX)
+            make.centerX.equalTo(detailStackView.snp.centerX)
         }
     }
     

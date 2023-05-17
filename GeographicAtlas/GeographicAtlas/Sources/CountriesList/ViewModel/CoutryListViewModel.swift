@@ -31,6 +31,7 @@ class CountryListViewModel {
                     if let continent = country.continents?.first {
                         if self?.countriesByContinent[continent] == nil {
                             self?.countriesByContinent[continent] = []
+                            print("DATA: \(country)")
                         }
                         self?.countriesByContinent[continent]?.append(country)
                     }

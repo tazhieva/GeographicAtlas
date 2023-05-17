@@ -1,3 +1,10 @@
+//
+//  CountriesListVC.swift
+//  GeographicAtlas
+//
+//  Created by Акмарал Тажиева on 14.05.2023.
+//
+
 import UIKit
 import SnapKit
 

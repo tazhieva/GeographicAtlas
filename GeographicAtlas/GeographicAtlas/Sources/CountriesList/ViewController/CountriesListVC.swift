@@ -1,80 +1,130 @@
+//
 //  CountriesListVC.swift
 //  GeographicAtlas
 //
-//  Created by Акмарал Тажиева on 13.05.2023.
+//  Created by Акмарал Тажиева on 14.05.2023.
 //
 
 import UIKit
 import SnapKit
 
 class CountriesListVC: UIViewController {
-
-    var expandedCell: IndexSet = []
+    
+    // MARK: - Private Properties
+    
+    private let viewModel = CountryListViewModel()
+    private let imageLoader = ImageDownloader()
+    
+    // MARK: - UI Elements
     
     private var tableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .plain)
-        tableView.separatorStyle = .none
-        tableView.backgroundColor = .clear
-        tableView.allowsMultipleSelection = true
-        tableView.register(CountryInfoCell.self, forCellReuseIdentifier: CountryInfoCell.identifier)
-        tableView.showsVerticalScrollIndicator = false
-        return tableView
+        let view = UITableView()
+        view.separatorStyle = .none
+        view.backgroundColor = .clear
+        view.allowsMultipleSelection = true
+        view.register(CountryListCell.self, forCellReuseIdentifier: CountryListCell.identifier)
+        view.showsVerticalScrollIndicator = false
+        return view
     }()
-     let cell = CountryInfoCell()
+    
+    // MARK: - LifeCycyle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        configUI()
+        view.backgroundColor = .systemBackground
+        navigationItem.backButtonDisplayMode = .minimal
+        configureTableView()
+        fetchCountries()
+    }
+}
+
+// MARK: - Fetch Data
+
+extension CountriesListVC {
+    private func fetchCountries() {
+        viewModel.getCountries { [weak self] result in
+            switch result {
+            case .success:
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
+            case .failure(let error):
+                switch error {
+                case .invalidURL:
+                    print(error.errorMessage)
+                case .decodingError:
+                    print(error.errorMessage)
+                case .networkError:
+                    print(error.errorMessage)
+                }
+            }
+        }
+    }
+}
+
+// MARK: - Configure TableView
+
+extension CountriesListVC {
+    private func configureTableView() {
+    
         tableView.delegate = self
         tableView.dataSource = self
-    }
-    
-    // MARK: - UI Configuration
-    
-    private func configUI() {
         view.addSubview(tableView)
+        
         makeConstraints()
     }
     
-    private func makeConstraints() {
+    func makeConstraints() {
         tableView.snp.makeConstraints { make in
-            make.top.left.right.bottom.equalToSuperview()
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.left.right.bottom.equalToSuperview()
         }
     }
-    
 }
-// MARK: - UITableView DataSource
+
+// MARK: - UITableView
 
 extension CountriesListVC: UITableViewDataSource, UITableViewDelegate {
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return viewModel.countriesByContinent.count
+    }
+
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let continent = Continent.allCases[section]
+        return continent.rawValue.uppercased()
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let continent = Continent.allCases[section]
+        return viewModel.countriesByContinent[continent]?.count ?? 1
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-       
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CountryInfoCell.identifier, for: indexPath) as? CountryInfoCell else {return UITableViewCell()}
-        
-        cell.expandClicked = {
-            if self.expandedCell.contains(indexPath.row) {
-                self.expandedCell.remove(indexPath.row)
-            }else {
-                self.expandedCell.insert(indexPath.row)
-            }
-            print("11")
-            
-            tableView.reloadRows(at: [indexPath], with: .automatic)
-            
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CountryListCell.identifier, for: indexPath) as? CountryListCell else {
+            return UITableViewCell()
         }
         
+        let continent = Continent.allCases[indexPath.section]
+        guard let country = viewModel.countriesByContinent[continent]?[indexPath.row], let cca2 = country.cca2 else {
+            return cell
+        }
+        
+        if let urlString = country.flags?.png {
+            self.imageLoader.downloadImage(from: urlString) { [weak self] image in
+                DispatchQueue.main.async {
+                    cell.flagImage = image
+                }
+            }
+        }
+        
+        cell.configureLabels(country: country)
+        cell.learnMoreButtonClicked = { [weak self] in
+            guard let self = self else { return }
+            let detailVC = CountryDetailVC(cca2Code: cca2)
+            detailVC.title = country.name.common
+            self.navigationController?.pushViewController(detailVC, animated: true)
+        }
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if cell.isExpanded { return 300 }
-        return 100
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-    }
 }
-

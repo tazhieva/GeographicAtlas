@@ -1,6 +1,6 @@
 <h1>GeographicAtlas - Technical Task for STRONG TEAM Internship program</h1>
 <h3>Done by Tazhiyeva Akmaral, 2023</h3>
-<h3> <a href="https://youtube.com/shorts/XmenRFGTVE4">Video Link</a> with functionality show-up on YouTube</h3>
+<h3> <a href="[https://youtube.com/shorts/XmenRFGTVE4](https://www.youtube.com/shorts/-YkmRIwPkRY)">Video Link</a> with functionality show-up on YouTube</h3>
 
 <p>This repository contains an iOS application that utilizes the <a href="https://restcountries.com/" target="_blank">restcountries.com</a> free API to display information about countries. The app consists of two main screens: CountriesList and CountryDetails.</p>
 
@@ -101,7 +101,7 @@
 
 <h2>Screen Recordings</h2>
 <ol>
-  <li><a href="https://youtube.com/shorts/XmenRFGTVE4">iPhone 14 Screen Recording</a></li>
+  <li><a href="[https://youtube.com/shorts/XmenRFGTVE4](https://www.youtube.com/shorts/-YkmRIwPkRY)">iPhone 14 Screen Recording</a></li>
    <li><a href="https://youtube.com/shorts/uaqCZNPPD3I">iPhone X Screen Recording</a></li>
    <li><a href="https://youtube.com/shorts/2_PIWpMXFTg">iPhone 8 Screen Recording</a></li>
    <li><a href="https://youtube.com/shorts/oyxbfmCJsIo">iPad Pro (12.9-inch) (6th generation) Screen Recording</a></li>

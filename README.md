@@ -95,9 +95,9 @@
 
 <h2>ScreenShots</h2>
 
-<img src="images/countryList.png>
+<img src="images/countryList".png>
 
-<img src="images/countryDetails.png>
+<img src="images/countryDetails".png>
 
 
 <h2>Screen Recordings</h2>

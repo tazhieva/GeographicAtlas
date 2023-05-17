@@ -6,6 +6,7 @@ class CountriesListVC: UIViewController {
     // MARK: - Private Properties
     
     private let viewModel = CountryListViewModel()
+    private let imageLoader = ImageDownloader()
     
     // MARK: - UI Elements
     
@@ -34,12 +35,26 @@ class CountriesListVC: UIViewController {
 
 extension CountriesListVC {
     private func fetchCountries() {
-        viewModel.getCountries { [weak self] in
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
+        viewModel.getCountries { [weak self] result in
+            switch result {
+            case .success:
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
+            case .failure(let error):
+                switch error {
+                case .invalidURL:
+                    print(error.errorMessage)
+                case .decodingError:
+                    print(error.errorMessage)
+                case .networkError:
+                    print(error.errorMessage)
+                }
             }
         }
     }
+
+
 
     func openDetaiVC() {
     
@@ -95,7 +110,7 @@ extension CountriesListVC: UITableViewDataSource, UITableViewDelegate {
         }
         
         if let urlString = country.flags?.png {
-            viewModel.downloadImage(from: urlString) { [weak self] image in
+            self.imageLoader.downloadImage(from: urlString) { [weak self] image in
                 DispatchQueue.main.async {
                     cell.flagImage = image
                 }

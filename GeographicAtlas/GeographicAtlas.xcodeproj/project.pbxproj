@@ -11,6 +11,8 @@
 		719545782A1377C8001A68F6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719545772A1377C8001A68F6 /* Constants.swift */; };
 		7195457D2A139141001A68F6 /* Continent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7195457C2A139140001A68F6 /* Continent.swift */; };
 		7195457F2A139162001A68F6 /* Currencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7195457E2A139162001A68F6 /* Currencies.swift */; };
+		719545812A148214001A68F6 /* GAError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719545802A148214001A68F6 /* GAError.swift */; };
+		719545832A1485CA001A68F6 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719545822A1485CA001A68F6 /* ImageLoader.swift */; };
 		71EE0EB52A0F4BE900FD836C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EE0EB42A0F4BE900FD836C /* AppDelegate.swift */; };
 		71EE0EBE2A0F4BEB00FD836C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71EE0EBD2A0F4BEB00FD836C /* Assets.xcassets */; };
 		71EE0EC12A0F4BEB00FD836C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71EE0EBF2A0F4BEB00FD836C /* LaunchScreen.storyboard */; };
@@ -28,6 +30,8 @@
 		719545772A1377C8001A68F6 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		7195457C2A139140001A68F6 /* Continent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Continent.swift; sourceTree = "<group>"; };
 		7195457E2A139162001A68F6 /* Currencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currencies.swift; sourceTree = "<group>"; };
+		719545802A148214001A68F6 /* GAError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAError.swift; sourceTree = "<group>"; };
+		719545822A1485CA001A68F6 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		71EE0EB12A0F4BE900FD836C /* GeographicAtlas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeographicAtlas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		71EE0EB42A0F4BE900FD836C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		71EE0EBD2A0F4BEB00FD836C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -153,6 +157,8 @@
 			children = (
 				719545772A1377C8001A68F6 /* Constants.swift */,
 				71EE0EFA2A12522A00FD836C /* Extension.swift */,
+				719545802A148214001A68F6 /* GAError.swift */,
+				719545822A1485CA001A68F6 /* ImageLoader.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -268,11 +274,13 @@
 				7195457D2A139141001A68F6 /* Continent.swift in Sources */,
 				71EE0EEC2A0FEC3400FD836C /* Country.swift in Sources */,
 				7195457F2A139162001A68F6 /* Currencies.swift in Sources */,
+				719545812A148214001A68F6 /* GAError.swift in Sources */,
 				719545752A137705001A68F6 /* CountryDetailsViewModel.swift in Sources */,
 				71EE0EEE2A10CD7900FD836C /* CountryDetailVC.swift in Sources */,
 				71EE0EB52A0F4BE900FD836C /* AppDelegate.swift in Sources */,
 				71EE0EF92A11D43F00FD836C /* CountryListCell.swift in Sources */,
 				719545782A1377C8001A68F6 /* Constants.swift in Sources */,
+				719545832A1485CA001A68F6 /* ImageLoader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

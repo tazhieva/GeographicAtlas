@@ -15,6 +15,7 @@ class CountryDetailVC: UIViewController {
     // MARK: - Private Properties
     
     private let viewModel = CountryDetailsViewModel()
+    private let imageLoader = ImageDownloader()
     
     // MARK: - UI Elemenets
     
@@ -42,12 +43,15 @@ class CountryDetailVC: UIViewController {
         return label
     }()
     
-    private let capitalCoordinatesLabel: UILabel = {
+    private lazy var capitalCoordinatesLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         label.numberOfLines = 0
+        label.isUserInteractionEnabled = true
+        label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openMap)))
         return label
     }()
+
     
     private let populationLabel: UILabel = {
         let label = UILabel()
@@ -74,7 +78,6 @@ class CountryDetailVC: UIViewController {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         label.numberOfLines = 0
-        label.lineBreakMode = .byCharWrapping
         return label
     }()
     
@@ -146,20 +149,33 @@ extension CountryDetailVC {
 
 }
 
+
+ // MARK: - Actions
+
+extension CountryDetailVC {
+    @objc private func openMap() {
+        if let urlString = viewModel.country.first?.maps?.openStreetMaps,
+           let url = URL(string: urlString) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
+}
+
 // MARK: - Fetch Data
 
 extension CountryDetailVC {
     private func fetchCountryDetails() {
         viewModel.getCountryDetails(cca2Code: cca2Code) { [weak self] country, error in
             if let error = error {
-                print("Error fetching country details: \(error)")
+                print(error.errorMessage)
             } else if let country = country?.first {
                 DispatchQueue.main.async {
                     self?.configureLabels(country: country)
                     if let urlString = country.flags?.png {
-                        self?.viewModel.downloadImage(from: urlString) { image in
+                        self?.imageLoader.downloadImage(from: urlString) { image in
                             self?.flagImageView.image = image
                         }
+
                     }
                 }
             }

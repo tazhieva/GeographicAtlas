@@ -22,8 +22,9 @@ class CountryDetailVC: UIViewController {
     private let flagImageView: UIImageView = {
         let view = UIImageView()
         view.layer.cornerRadius = 12
-        view.contentMode = .scaleAspectFill
         view.clipsToBounds = true
+        view.contentMode = .scaleAspectFill
+      
         return view
     }()
     
@@ -139,8 +140,12 @@ extension CountryDetailVC {
             let areaText = "Area: \(self.formatNumber(Int(country.area ?? 0))) km²"
             self.areaLabel.attributedText = self.formatBulletList(withText: areaText)
             
-            let currencyText = "Currency: \(country.currencies?.afn?.name ?? "Tenge (₸) (KZT)")"
-            self.currencyLabel.attributedText = self.formatBulletList(withText: currencyText)
+            if let curr = country.currencies {
+                curr.forEach {
+                    let currencyText = "Currency: \($0.value.name ?? "Tenge (₸) (KZT)")"
+                    self.currencyLabel.attributedText = self.formatBulletList(withText: currencyText)
+                }
+            }
             
             let timezonesText = "Timezones: \(country.timezones?.joined(separator: ", \n\n") ?? "")"
             self.timezonesLabel.attributedText = self.formatBulletList(withText: timezonesText)
@@ -201,8 +206,8 @@ extension CountryDetailVC {
         }
 
         flagImageView.snp.makeConstraints { make in
-            make.top.equalTo(scrollView.snp.top).inset(15)
-            make.left.right.equalToSuperview().inset(16)
+            make.top.equalToSuperview().inset(15)
+            make.left.right.equalToSuperview().inset(24)
             make.centerX.equalToSuperview()
         }
         

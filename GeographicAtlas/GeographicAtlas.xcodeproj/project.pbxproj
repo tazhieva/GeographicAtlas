@@ -10,7 +10,6 @@
 		719545752A137705001A68F6 /* CountryDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719545742A137705001A68F6 /* CountryDetailsViewModel.swift */; };
 		719545782A1377C8001A68F6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719545772A1377C8001A68F6 /* Constants.swift */; };
 		7195457D2A139141001A68F6 /* Continent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7195457C2A139140001A68F6 /* Continent.swift */; };
-		7195457F2A139162001A68F6 /* Currencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7195457E2A139162001A68F6 /* Currencies.swift */; };
 		719545812A148214001A68F6 /* GAError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719545802A148214001A68F6 /* GAError.swift */; };
 		719545832A1485CA001A68F6 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719545822A1485CA001A68F6 /* ImageLoader.swift */; };
 		71EE0EB52A0F4BE900FD836C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EE0EB42A0F4BE900FD836C /* AppDelegate.swift */; };
@@ -29,7 +28,6 @@
 		719545742A137705001A68F6 /* CountryDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryDetailsViewModel.swift; sourceTree = "<group>"; };
 		719545772A1377C8001A68F6 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		7195457C2A139140001A68F6 /* Continent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Continent.swift; sourceTree = "<group>"; };
-		7195457E2A139162001A68F6 /* Currencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currencies.swift; sourceTree = "<group>"; };
 		719545802A148214001A68F6 /* GAError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAError.swift; sourceTree = "<group>"; };
 		719545822A1485CA001A68F6 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		71EE0EB12A0F4BE900FD836C /* GeographicAtlas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeographicAtlas.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -62,7 +60,6 @@
 			children = (
 				71EE0EEB2A0FEC3400FD836C /* Country.swift */,
 				7195457C2A139140001A68F6 /* Continent.swift */,
-				7195457E2A139162001A68F6 /* Currencies.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -273,7 +270,6 @@
 				71EE0EF32A10DA1000FD836C /* CoutryListViewModel.swift in Sources */,
 				7195457D2A139141001A68F6 /* Continent.swift in Sources */,
 				71EE0EEC2A0FEC3400FD836C /* Country.swift in Sources */,
-				7195457F2A139162001A68F6 /* Currencies.swift in Sources */,
 				719545812A148214001A68F6 /* GAError.swift in Sources */,
 				719545752A137705001A68F6 /* CountryDetailsViewModel.swift in Sources */,
 				71EE0EEE2A10CD7900FD836C /* CountryDetailVC.swift in Sources */,

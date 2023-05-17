@@ -60,12 +60,6 @@ extension CountriesListVC {
             }
         }
     }
-
-
-
-    func openDetaiVC() {
-    
-    }
 }
 
 // MARK: - Configure TableView

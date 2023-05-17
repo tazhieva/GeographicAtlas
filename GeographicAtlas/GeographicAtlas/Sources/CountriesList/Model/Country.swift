@@ -10,7 +10,7 @@ import Foundation
 // MARK: - Country
 struct Country: Codable {
     let name: Name
-    let currencies: Currencies?
+    let currencies: [String: CurDetails]?
     let capital: [String]?
     let region, subregion: String?
     let area: Double?
@@ -21,6 +21,7 @@ struct Country: Codable {
     let cca2: String?
     let flags: Flags?
     let capitalInfo: CapitalInfo?
+    var isExpanded: Bool? 
 }
 
 // MARK: - CapitalInfo
@@ -41,4 +42,8 @@ struct Maps: Codable {
 // MARK: - Name
 struct Name: Codable {
     let common: String
+}
+
+struct CurDetails: Codable {
+    var name, symbol: String?
 }

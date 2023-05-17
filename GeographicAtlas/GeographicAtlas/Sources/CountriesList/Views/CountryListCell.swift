@@ -92,7 +92,7 @@ class CountryListCell: UITableViewCell {
         stack.axis = .vertical
         stack.spacing = 8
         stack.distribution = .equalSpacing
-        stack.isHidden = true
+//        stack.isHidden = true
         return stack
     }()
     
@@ -105,11 +105,10 @@ class CountryListCell: UITableViewCell {
         return btn
     }()
     
-    private lazy var mainStackView: UIStackView = {
-        let view = UIStackView()
+    private lazy var mainContainerView: UIView = {
+        let view = UIView()
         view.backgroundColor = UIColor(named: Constants.cellColor)
         view.layer.cornerRadius = 12
-        view.axis = .vertical
         view.clipsToBounds = true
         return view
     }()
@@ -138,9 +137,13 @@ extension CountryListCell {
 
         let areaText = "Area: \(formatArea(country.area ?? 0)) km²"
         areaLabel.attributedText = attributedText(withText: areaText)
-
-        let currencyText = "Currencies: \(country.currencies?.afn?.name ?? "Tenge (₸) (KZT)")"
-        currencyLabel.attributedText = attributedText(withText: currencyText)
+        
+        if let curr = country.currencies {
+            curr.forEach {
+                let currencyText = "Currency: \($0.value.name ?? "Tenge (₸) (KZT)")"
+                currencyLabel.attributedText = attributedText(withText: currencyText)
+            }
+        }
     }
 }
 
@@ -169,16 +172,16 @@ extension CountryListCell {
         selectionStyle = .none
         backgroundColor = .clear
         
-        contentView.addSubview(mainStackView)
+        contentView.addSubview(mainContainerView)
         
-        mainStackView.addSubview(cardStackView)
-        mainStackView.addSubview(detailStackView)
+        mainContainerView.addSubview(cardStackView)
+        mainContainerView.addSubview(detailStackView)
         //        vStackView2.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         makeConstraints()
     }
     
     private func makeConstraints() {
-        mainStackView.snp.makeConstraints { make in
+        mainContainerView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(10)
             make.left.equalToSuperview().offset(16)
             make.right.equalToSuperview().offset(-16)

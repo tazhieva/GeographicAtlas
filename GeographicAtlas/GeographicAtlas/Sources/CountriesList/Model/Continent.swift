@@ -9,11 +9,11 @@ import Foundation
 
 enum Continent: String, Codable, CaseIterable {
     case northAmerica = "North America"
+    case oceania = "Oceania"
+    case africa = "Africa"
+    case asia = "Asia"
+    case antarctica = "Antarctica"
     case southAmerica = "South America"
     case europe = "Europe"
-    case asia = "Asia"
-    case africa = "Africa"
-    case antarctica = "Antarctica"
-    case oceania = "Oceania"
-   
+
 }
